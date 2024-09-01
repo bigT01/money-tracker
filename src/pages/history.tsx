@@ -49,9 +49,9 @@ const History = () => {
                     </div>
                 </div>
                 <div className="flex flex-wrap w-full gap-1">
-                    <Tags label={'Переводы'} color={'#236F57'} sum={27600} textColor={'#FFFFFF'}/>
-                    <Tags label={'Транс'} color={'#EDDCD8'} sum={27600} textColor={'#001026'}/>
-                    <Tags label={'Остальное'} color={'#F15931'} sum={27600} textColor={'#FFFFFF'}/>
+                    {pieChartData.map((element) => (
+                        <Tags label={element.name} color={element.colors} sum={element.value} textColor={'#000000'}/>
+                    ))}
                 </div>
             </header>
             <div className='w-full h-[1px] bg-primary-grey'>

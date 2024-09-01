@@ -4,7 +4,7 @@ import './App.css';
 function App() {
   return (
       <>
-        hello page
+        {process.env.REACT_APP_BACKEND}
       </>
   );
 }
