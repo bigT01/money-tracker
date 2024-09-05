@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Transaction from "./pages/transaction";
 import History from "./pages/history";
+import Statistic from "./pages/statistic";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -17,6 +18,7 @@ root.render(
                 <Route path={'/'} element={<App />}/>
                 <Route path={'/transaction'} element={<Transaction />}/>
                 <Route path={'/history'} element={<History />}/>
+                <Route path={'/statistic'} element={<Statistic />}/>
             </Routes>
         </BrowserRouter>
     </React.StrictMode>
