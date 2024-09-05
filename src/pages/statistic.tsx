@@ -1,7 +1,7 @@
 import React from 'react';
 import AdditionalPost from "../components/AdditionalPost";
 import {Bar, BarChart} from "recharts";
-import ColorButton from "../components/colorButton";
+import ColorWrapper from "../components/ColorWrapper";
 
 const Statistic = () => {
     const data = [
@@ -61,9 +61,7 @@ const Statistic = () => {
                            placeholder={"Развлечения"}/>
                 </AdditionalPost>
                 <AdditionalPost label={'Поменять цвет'}>
-                    <div className={'flex gap-2'}>
-                        <ColorButton color={'#000000'} isActive={true}/>
-                    </div>
+                    <ColorWrapper colors={['#FF534270', 'rgba(217,154,10,0.44)', '#FFCF3370', 'rgba(31,133,0,0.44)', '#B0755370']}/>
                 </AdditionalPost>
                 <h5 className={'font-bold text-lg mb-5'}>Статистика</h5>
                 <BarChart className={'w-full'} width={350} height={170} data={data}>
