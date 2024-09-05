@@ -9,6 +9,7 @@ interface datePurchase {
 }
 
 interface section {
+    id: string,
     bgColor: string,
     emoji: string,
     name: string
@@ -51,26 +52,31 @@ export const useStore = create<IState>()(devtools((set) => ({
     history: [],
     sections: [
         {
+            id: '1',
             bgColor: '#B0755370',
             name: 'Бизнес',
             emoji: '💼'
         },
         {
+            id: '2',
             bgColor: '#FF534270',
             name: 'Развлечения',
             emoji: '🕹'
         },
         {
+            id: '3',
             bgColor: 'rgba(217,154,10,0.44)',
             name: 'Транспорт',
             emoji: '🚖'
         },
         {
+            id: '4',
             bgColor: '#FFCF3370',
             name: 'Бизнес',
             emoji: '💼'
         },
         {
+            id: '5',
             bgColor: 'rgba(31,133,0,0.44)',
             name: 'Продукты',
             emoji: '🥕'
