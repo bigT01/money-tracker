@@ -1,6 +1,7 @@
 import React from 'react';
 import AdditionalPost from "../components/AdditionalPost";
 import {Bar, BarChart} from "recharts";
+import ColorButton from "../components/colorButton";
 
 const Statistic = () => {
     const data = [
@@ -61,7 +62,7 @@ const Statistic = () => {
                 </AdditionalPost>
                 <AdditionalPost label={'Поменять цвет'}>
                     <div className={'flex gap-2'}>
-                        <div className='w-[32px] h-[32px] rounded-full bg-[#2EC5A7]'></div>
+                        <ColorButton color={'#000000'} isActive={true}/>
                     </div>
                 </AdditionalPost>
                 <h5 className={'font-bold text-lg mb-5'}>Статистика</h5>
