@@ -41,8 +41,8 @@ const Transaction = () => {
     }
 
     const HandleClick = () => {
-        setHistory(title, subtitle, activeSection || {name: 'bb', emoji: 's', bgColor: '#000000'}, sum, date)
-        addPieData(activeSection?.name || 'hello', sum, activeSection?.bgColor || '#000000')
+        setHistory(title, subtitle, activeSection || {id: '0',name: 'bb', emoji: 's', bgColor: '#000000'}, sum, date)
+        addPieData(activeSection?.id || 'hello', sum)
         navigate('/history')
     }
 
@@ -82,7 +82,7 @@ const Transaction = () => {
             <main className={`mx-8 ${activeSection ? '' : 'mt-10'}`}>
                 <div className={'grid w-full grid-cols-4 gap-5 mb-8'}>
                     {sections.map(section => (
-                        <Category label={section.name} icon={section.emoji} bgIcon={section.bgColor}/>
+                        <Category id={section.id} label={section.name} icon={section.emoji} bgIcon={section.bgColor}/>
                     ))}
                 </div>
                 <AdditionalPost label={'Комментарий'}>

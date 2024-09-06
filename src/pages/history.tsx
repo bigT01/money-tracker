@@ -15,8 +15,8 @@ const History = () => {
 
     useEffect(() => {
         if(pieChartData[0]){
-            setData([...pieChartData].map(element => ({value: element.value, name: element.name})))
-            setColors([...pieChartData].map(element => (element.colors)))
+            // setData([...pieChartData].map(element => ({value: element.value, name: element.name})))
+            // setColors([...pieChartData].map(element => (element.colors)))
         }
     }, [pieChartData]);
     return (
@@ -49,9 +49,9 @@ const History = () => {
                     </div>
                 </div>
                 <div className="flex flex-wrap w-full gap-1">
-                    {pieChartData.map((element) => (
-                        <Tags label={element.name} color={element.colors} sum={element.value} textColor={'#000000'}/>
-                    ))}
+                    {/*{pieChartData.map((element) => (*/}
+                    {/*    <Tags label={element.name} color={element.colors} sum={element.value} textColor={'#000000'}/>*/}
+                    {/*))}*/}
                 </div>
             </header>
             <div className='w-full h-[1px] bg-primary-grey'>

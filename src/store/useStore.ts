@@ -16,9 +16,8 @@ interface section {
 }
 
 interface pieData {
-    name: string,
+    iconId: string,
     value: number,
-    colors: string
 }
 
 export interface historyPurchase {
@@ -45,7 +44,7 @@ interface IState {
     addTag: (tag: string) => void,
     tags: string[],
     pieChartData: pieData[],
-    addPieData : (name: string, value: number, colors: string) => void
+    addPieData : (iconId: string, value: number) => void
 }
 
 export const useStore = create<IState>()(devtools((set) => ({
@@ -129,20 +128,19 @@ export const useStore = create<IState>()(devtools((set) => ({
     }, false, 'setHistory'),
     tags: ['Для FetchLab'], // Initial tags
     addTag: (tag:string) => set((state) => ({ tags: [...state.tags, tag] })),
-    addPieData: (name: string, value: number, colors: string) => set((state) => {
-        const pieChartDataT = state.pieChartData.filter(element => element.name === (state.activeSection?.name))
+    addPieData: (iconId: string, value: number) => set((state) => {
+        const pieChartDataT = state.pieChartData.filter(element => element.iconId === (state.activeSection?.id))
 
         if(pieChartDataT[0]){
-            const finding = state.pieChartData.findIndex(element =>element.name === (state.activeSection?.name))
+            const finding = state.pieChartData.findIndex(element =>element.iconId === (state.activeSection?.id))
             const updatedDataT = [...state.pieChartData]
             updatedDataT[finding].value += value
 
             return {pieChartData: updatedDataT}
         } else{
             const newPieData = {
-                name,
+                iconId,
                 value,
-                colors
             }
             return {pieChartData: [...state.pieChartData, newPieData]}
         }
