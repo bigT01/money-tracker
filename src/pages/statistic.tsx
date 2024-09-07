@@ -1,9 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import AdditionalPost from "../components/AdditionalPost";
 import {Bar, BarChart} from "recharts";
 import ColorWrapper from "../components/ColorWrapper";
+import {useParams} from "react-router-dom";
+import CurrentSection from "../utils/currentSection";
+import {useStore} from "../store/useStore";
 
 const Statistic = () => {
+    const {id} = useParams();
+    const sections = useStore(state => state.sections)
     const data = [
         {
             name: 'Page A',
@@ -48,20 +53,22 @@ const Statistic = () => {
             amt: 2100,
         },
     ];
+
+
     return (
         <div className={'h-screen relative'}>
-            <h5 className='text-center py-5 font-bold text-lg'>Развлечения</h5>
+            <h5 className='text-center py-5 font-bold text-lg'>{CurrentSection(id || '1', sections).name}</h5>
             <div className={"w-[80px] h-[80px] mb-6 rounded-full mx-auto flex items-center justify-center"}
                  style={{background: '#EDDCD8'}}>
-                <span className={'font-bold text-center text-[40px]'}>❤️</span>
+                <span className={'font-bold text-center text-[40px]'}>{CurrentSection(id || '1', sections).emoji}️</span>
             </div>
             <main className={`mx-8 `}>
                 <AdditionalPost label={'Название'}>
-                    <input type="text" defaultValue={'Развлечения'} className='outline-none text-lg'
+                    <input type="text" defaultValue={CurrentSection(id || '1', sections).name} className='outline-none text-lg'
                            placeholder={"Развлечения"}/>
                 </AdditionalPost>
                 <AdditionalPost label={'Поменять цвет'}>
-                    <ColorWrapper colors={['#FF534270', 'rgba(217,154,10,0.44)', '#FFCF3370', 'rgba(31,133,0,0.44)', '#B0755370']}/>
+                    <ColorWrapper defaultActiveColor={CurrentSection(id || '1', sections).bgColor || ''} colors={['#FF534270', 'rgba(217,154,10,0.44)', '#FFCF3370', 'rgba(31,133,0,0.44)', '#B0755370']}/>
                 </AdditionalPost>
                 <h5 className={'font-bold text-lg mb-5'}>Статистика</h5>
                 <BarChart className={'w-full'} width={350} height={170} data={data}>

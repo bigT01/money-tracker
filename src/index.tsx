@@ -18,7 +18,7 @@ root.render(
                 <Route path={'/'} element={<App />}/>
                 <Route path={'/transaction'} element={<Transaction />}/>
                 <Route path={'/history'} element={<History />}/>
-                <Route path={'/statistic'} element={<Statistic />}/>
+                <Route path={'/statistic/:id'} element={<Statistic />}/>
             </Routes>
         </BrowserRouter>
     </React.StrictMode>
