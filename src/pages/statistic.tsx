@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import AdditionalPost from "../components/AdditionalPost";
 import {Bar, BarChart} from "recharts";
 import ColorWrapper from "../components/ColorWrapper";
@@ -9,6 +9,7 @@ import {useStore} from "../store/useStore";
 const Statistic = () => {
     const {id} = useParams();
     const sections = useStore(state => state.sections)
+    const editSection = useStore(state => state.editSection)
     const data = [
         {
             name: 'Page A',

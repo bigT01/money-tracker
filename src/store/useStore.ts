@@ -44,7 +44,8 @@ interface IState {
     addTag: (tag: string) => void,
     tags: string[],
     pieChartData: pieData[],
-    addPieData : (iconId: string, value: number) => void
+    addPieData : (iconId: string, value: number) => void,
+    editSection: (section: section) => void
 }
 
 export const useStore = create<IState>()(devtools((set) => ({
@@ -144,5 +145,9 @@ export const useStore = create<IState>()(devtools((set) => ({
             }
             return {pieChartData: [...state.pieChartData, newPieData]}
         }
+    }),
+    editSection: (section) => set((state) => {
+        const data = state.sections.map(sectionData => sectionData.id === section.id ? section : sectionData)
+        return {sections: data}
     })
 })))
