@@ -8,7 +8,7 @@ interface datePurchase {
     currency: string
 }
 
-interface section {
+export interface section {
     id: string,
     bgColor: string,
     emoji: string,

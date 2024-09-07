@@ -2,21 +2,23 @@ import React, {useEffect, useState} from 'react';
 import Tags from "../components/Tags";
 import DateHistory from "../components/dateHistory";
 import {Link} from "react-router-dom";
-import {useStore} from "../store/useStore";
+import {section, useStore} from "../store/useStore";
 import {Cell, Pie, PieChart} from "recharts";
+import CurrentSection from "../utils/currentSection";
 
 const History = () => {
     const history = useStore(state => state.history)
+    const sections = useStore(state => state.sections)
     const pieChartData = useStore(state => state.pieChartData)
 
     const [data, setData] = useState<any>([])
-    const [colors, setColors] = useState<string[]>([])
+    const [colors, setColors] = useState<section[]>([])
 
 
     useEffect(() => {
         if(pieChartData[0]){
-            // setData([...pieChartData].map(element => ({value: element.value, name: element.name})))
-            // setColors([...pieChartData].map(element => (element.colors)))
+            setData([...pieChartData].map(element => ({value: element.value, name: CurrentSection(element.iconId, sections).name})))
+            setColors([...pieChartData].map(element => CurrentSection(element.iconId, sections)))
         }
     }, [pieChartData]);
     return (
@@ -42,16 +44,16 @@ const History = () => {
                                 dataKey="value"
                             >
                                 {data.map((entry: any, index: any) => (
-                                    <Cell string={entry.name} key={`cell-${index}`} fill={colors[index % colors.length]} />
+                                     <Cell string={CurrentSection(entry.iconId, sections)?.name} key={`cell-${index}`} fill={colors.map(section => section.bgColor)[index % colors.length]} />
                                 ))}
                             </Pie>
                         </PieChart>
                     </div>
                 </div>
                 <div className="flex flex-wrap w-full gap-1">
-                    {/*{pieChartData.map((element) => (*/}
-                    {/*    <Tags label={element.name} color={element.colors} sum={element.value} textColor={'#000000'}/>*/}
-                    {/*))}*/}
+                    {pieChartData.map((element) => (
+                        <Tags label={CurrentSection(element.iconId, sections)?.name} color={CurrentSection(element.iconId, sections)?.bgColor} sum={element.value} textColor={'#000000'}/>
+                    ))}
                 </div>
             </header>
             <div className='w-full h-[1px] bg-primary-grey'>
