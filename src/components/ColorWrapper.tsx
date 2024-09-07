@@ -1,12 +1,21 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ColorButton from "./colorButton";
 
 type ColorWrapperProps = {
     colors : string[],
-    defaultActiveColor: string
+    defaultActiveColor: string,
+    setBgColor: (color:string) => void
 }
-const ColorWrapper = ({colors, defaultActiveColor}: ColorWrapperProps) => {
-    const [activeColor, setActiveColor] = useState<string>(defaultActiveColor)
+const ColorWrapper = ({colors, defaultActiveColor, setBgColor}: ColorWrapperProps) => {
+    const [activeColor, setActiveColor] = useState<string>('')
+
+    useEffect(() => {
+        setActiveColor(defaultActiveColor)
+    }, []);
+
+    useEffect(() => {
+        setBgColor(activeColor)
+    }, [activeColor]);
 
     return (
         <div className={'flex gap-2'}>
