@@ -82,7 +82,7 @@ const Transaction = () => {
             <main className={`mx-8 ${activeSection ? '' : 'mt-10'}`}>
                 <div className={'grid w-full grid-cols-4 gap-5 mb-8'}>
                     {sections.map(section => (
-                        <Category id={section.id} label={section.name} icon={section.emoji} bgIcon={section.bgColor}/>
+                        <Category key={section.id} id={section.id} label={section.name} icon={section.emoji} bgIcon={section.bgColor}/>
                     ))}
                 </div>
                 <AdditionalPost label={'Комментарий'}>
