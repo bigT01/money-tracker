@@ -3,14 +3,14 @@ import AdditionalPost from "../components/AdditionalPost";
 import {Bar, BarChart} from "recharts";
 import ColorWrapper from "../components/ColorWrapper";
 import {useNavigate, useParams} from "react-router-dom";
-import CurrentSection from "../utils/currentSection";
 import {section, useStore} from "../store/useStore";
+import useCurrentSection from "../hooks/useCurrentSection";
 
 const Statistic = () => {
     const {id} = useParams();
     const navigate = useNavigate();
+    const section = useCurrentSection(id || '1')
 
-    const sections = useStore(state => state.sections)
     const editSection = useStore(state => state.editSection)
 
     const [sectionData, setSectionData] = useState<section>()
@@ -64,8 +64,8 @@ const Statistic = () => {
 
 
     useEffect(() => {
-        setSectionData(CurrentSection(id || '1', sections))
-    }, [])
+        setSectionData(section)
+    }, [id])
 
     useEffect(() => {
         if(sectionData){
