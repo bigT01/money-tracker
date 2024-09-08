@@ -20,6 +20,11 @@ interface pieData {
     value: number,
 }
 
+interface wallet {
+    name: string,
+    sum: number
+}
+
 export interface historyPurchase {
     icon: section,
     title: string,
@@ -38,14 +43,17 @@ interface IState {
     sections: section[],
     activeSection: section | null,
     activeTag: string,
+    wallets: wallet[],
     setActiveSection: (sectionProps: section) => void,
     setActiveTag: (activeTag: string) => void,
     setHistory: (title: string, subTitle: string, icon: section, sum: number, date: number) => void,
     addTag: (tag: string) => void,
     tags: string[],
     pieChartData: pieData[],
-    addPieData : (iconId: string, value: number) => void,
-    editSection: (section: section) => void
+    addPieData: (iconId: string, value: number) => void,
+    editSection: (section: section) => void,
+    addCard: (wallet: wallet) => void,
+    editCard: (wallet: wallet) => void
 }
 
 export const useStore = create<IState>()(devtools((set) => ({
@@ -85,6 +93,7 @@ export const useStore = create<IState>()(devtools((set) => ({
     pieChartData: [],
     activeSection: null,
     activeTag: '',
+    wallets: [],
     setActiveSection: (sectionProps) => set(() => ({activeSection: sectionProps}), false, 'setActiveSection'),
     setActiveTag: (activeTag) => set(() => ({activeTag}), false, 'setActiveTag'),
     setHistory: (title, subtitle, icon, sum, date) => set((state) => {
@@ -103,13 +112,13 @@ export const useStore = create<IState>()(devtools((set) => ({
             });
             updatedHistory[existingPurchaseIndex].datePurchase.sum += sum
 
-            return { history: updatedHistory};
+            return {history: updatedHistory};
 
         } else {
             // If the date does not exist, create a new date entry with the history purchase
             const newPurchase = {
                 datePurchase: {
-                    data: new Date(date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }),
+                    data: new Date(date).toLocaleDateString('ru-RU', {day: 'numeric', month: 'long', year: 'numeric'}),
                     dateInNumber: date,
                     sum,
                     currency: "₽"
@@ -124,21 +133,21 @@ export const useStore = create<IState>()(devtools((set) => ({
                     }
                 ]
             };
-            return { history: [...state.history, newPurchase] };
+            return {history: [...state.history, newPurchase]};
         }
     }, false, 'setHistory'),
     tags: ['Для FetchLab'], // Initial tags
-    addTag: (tag:string) => set((state) => ({ tags: [...state.tags, tag] })),
+    addTag: (tag: string) => set((state) => ({tags: [...state.tags, tag]})),
     addPieData: (iconId: string, value: number) => set((state) => {
         const pieChartDataT = state.pieChartData.filter(element => element.iconId === (state.activeSection?.id))
 
-        if(pieChartDataT[0]){
-            const finding = state.pieChartData.findIndex(element =>element.iconId === (state.activeSection?.id))
+        if (pieChartDataT[0]) {
+            const finding = state.pieChartData.findIndex(element => element.iconId === (state.activeSection?.id))
             const updatedDataT = [...state.pieChartData]
             updatedDataT[finding].value += value
 
             return {pieChartData: updatedDataT}
-        } else{
+        } else {
             const newPieData = {
                 iconId,
                 value,
@@ -149,5 +158,20 @@ export const useStore = create<IState>()(devtools((set) => ({
     editSection: (section) => set((state) => {
         const data = state.sections.map(sectionData => sectionData.id === section.id ? section : sectionData)
         return {sections: data}
-    })
+    }),
+    addCard: (wallet) => set((state) => {
+        const data = [...state.wallets, wallet]
+        return {wallets: data}
+    }),
+    editCard: (wallet) => set((state) => {
+        const data = state.wallets.map((walletData) =>
+            walletData.name === wallet.name
+                ? {
+                    name: wallet.name,
+                    sum: walletData.sum + wallet.sum,
+                }
+                : walletData
+        );
+        return { wallets: data };
+    }),
 })))

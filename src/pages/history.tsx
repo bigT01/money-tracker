@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import {section, useStore} from "../store/useStore";
 import {Cell, Pie, PieChart} from "recharts";
 import CurrentSection from "../utils/currentSection";
+import {IoIosArrowBack} from "react-icons/io";
 
 const History = () => {
     const history = useStore(state => state.history)
@@ -65,6 +66,9 @@ const History = () => {
                 ))}
 
             </main>
+            <Link to={'/'} className={'fixed rounded-full bottom-10 left-5 bg-primary-green w-[64px] h-[44px] flex items-center justify-center'}>
+                <IoIosArrowBack color={'#FFFFFF'} size={24}/>
+            </Link>
             <Link to={'/transaction'} className={'fixed rounded-full bottom-10 right-5 bg-primary-green w-[64px] h-[44px] flex items-center justify-center'}>
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 1V9M9 9V17M9 9H17M9 9H1" stroke="white" strokeWidth="2" strokeLinecap="round"
