@@ -25,6 +25,11 @@ interface wallet {
     sum: number
 }
 
+interface monthlySum {
+    month: string,
+    sum: number
+}
+
 export interface historyPurchase {
     icon: section,
     title: string,
@@ -49,7 +54,9 @@ interface IState {
     setHistory: (title: string, subTitle: string, icon: section, sum: number, date: number) => void,
     addTag: (tag: string) => void,
     tags: string[],
+    monthlyData: monthlySum[],
     pieChartData: pieData[],
+    updateMonthlyData: (date: number, sum: number) => void,
     addPieData: (iconId: string, value: number) => void,
     editSection: (section: section) => void,
     addCard: (wallet: wallet) => void,
@@ -93,6 +100,7 @@ export const useStore = create<IState>()(devtools((set) => ({
     pieChartData: [],
     activeSection: null,
     activeTag: '',
+    monthlyData: [],
     wallets: [],
     setActiveSection: (sectionProps) => set(() => ({activeSection: sectionProps}), false, 'setActiveSection'),
     setActiveTag: (activeTag) => set(() => ({activeTag}), false, 'setActiveTag'),
@@ -138,6 +146,21 @@ export const useStore = create<IState>()(devtools((set) => ({
     }, false, 'setHistory'),
     tags: ['Для FetchLab'], // Initial tags
     addTag: (tag: string) => set((state) => ({tags: [...state.tags, tag]})),
+    updateMonthlyData: (date: number, sum: number) => set((state) => {
+        const month = new Date(date).toLocaleString('ru-RU', {month: 'long', year: 'numeric'}); // Получаем месяц в формате "месяц, год"
+        const existingMonthIndex = state.monthlyData.findIndex(entry => entry.month === month);
+
+        if (existingMonthIndex !== -1) {
+            // Если месяц уже есть, добавляем сумму
+            const updatedMonthlyData = [...state.monthlyData];
+            updatedMonthlyData[existingMonthIndex].sum += sum;
+            return {monthlyData: updatedMonthlyData};
+        } else {
+            // Если месяца еще нет, создаем новую запись
+            const newMonthEntry = {month, sum};
+            return {monthlyData: [...state.monthlyData, newMonthEntry]};
+        }
+    }),
     addPieData: (iconId: string, value: number) => set((state) => {
         const pieChartDataT = state.pieChartData.filter(element => element.iconId === (state.activeSection?.id))
 

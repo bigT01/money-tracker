@@ -13,6 +13,7 @@ const Transaction = () => {
     const activeSection = useStore(state => state.activeSection)
     const activeTag = useStore(state => state.activeTag)
     const setHistory = useStore(state => state.setHistory)
+    const updateMonthlyData = useStore(state => state.updateMonthlyData)
     const addPieData = useStore(state => state.addPieData)
 
     const [title, setTitle] = useState('')
@@ -42,6 +43,7 @@ const Transaction = () => {
 
     const HandleClick = () => {
         setHistory(title, subtitle, activeSection || {id: '0',name: 'bb', emoji: 's', bgColor: '#000000'}, sum, date)
+        updateMonthlyData(date, sum)
         addPieData(activeSection?.id || 'hello', sum)
         navigate('/history')
     }
